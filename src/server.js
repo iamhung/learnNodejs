@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express'); //commonjs
 const configViewEngine = require('./config/viewEngie')
 const webRoutes = require('./routes/web');
-const connection = require('./config/datatbase')
+const connection = require('./config/datatbase');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -17,8 +17,8 @@ app.use('/',webRoutes);
 connection.query(
     'SELECT * FROM Users',
     function ( err, results, fields) {
-        console.log(' results ----', results);
-        console.log(' fields ----', fields);
+        console.log(' results home ----', results);
+        // console.log(' fields ----', fields);
     }
 );
 
