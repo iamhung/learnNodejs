@@ -8,39 +8,37 @@
   </head>
   <body>
     <div>
-        <!-- Navbar -->
+      <!-- Navbar -->
       <div class="topnav">
         <a class="active" href="/">HOME</a>
-        <a href="/products">PRODUCTS</a>
+        <a href="/create">CREATE USERS</a>
       </div>
 
-      <!-- Form add new users  -->
-      <div class="form">
-        <form action="/create-user" method="post">
-          <fieldset>
-            <legend>Form add new users</legend>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Name</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
 
-            <div class="input-group">
-                <label for="email">Email :</label>
-                <input type="email" id="email" name="email" />
-              </div>
+        <% for (let i = 0; i < listUsers.length; i++) { %>
+          <tr>
+            <td><%= listUsers[i].id %></td>
+            <td><%= listUsers[i].email %></td>
+            <td><%= listUsers[i].name %></td>
+            <td><%= listUsers[i].city %></td>
+            <td>
+              <a href="/update/<%= listUsers[i].id %>">edit</a>
+              <form action="/delete-user/<%= listUsers[i].id %>" method="POST">
+                <button>delete</button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
 
-            <div class="input-group">
-              <label for="name">Name :</label>
-              <input type="text" id="name" name="name" />
-            </div>
-
-            <div class="input-group">
-              <label for="city">City :</label>
-              <input type="text" id="city" name="city" />
-            </div>
-            
-            <button class="btn success" type="submit">ADD NEW</button>
-
-          </fieldset>
-        </form>
-      </div>
-
+      </table>
     </div>
   </body>
 </html>
