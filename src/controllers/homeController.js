@@ -32,7 +32,7 @@ const postCreateUser = (req, res) => {
         VALUES (?, ?, ?) `,
         [email, name, city],
         function(err, results) {
-            console.log('results ------------',results);
+            // console.log('results ------------',results);
 
             if(results){
                 res.send(' Create user success !!!')
@@ -54,18 +54,18 @@ const postUpdateUser = async (req, res) => {
 
     await updateUserById(email,city,name,userId)
 
-    res.send(' Create user success !!!')
+    res.redirect('/')
 }
 
 const deleteUser = async (req, res) => {
 
     let userId = req?.params?.id;
 
-    console.log('----------', req.params);
+    // console.log('----------', req.params);
 
     await deleteUserById(userId)
 
-    res.send(' Delete user success !!!')
+    res.redirect('/')
 }
 
 module.exports = {

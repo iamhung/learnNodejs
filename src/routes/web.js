@@ -4,6 +4,7 @@ const {
   getHomePage,
   postCreateUser,
   getCreateUsers,
+  postUpdateUser,
   getUpdateUsers,
   deleteUser,
 } = require("../controllers/homeController");
@@ -16,7 +17,7 @@ router.get("/create", getCreateUsers);
 
 router.post("/create-user", postCreateUser);
 
-router.post("/update-user/:id", getHomePage);
+router.post("/update-user/:id", postUpdateUser);
 
 router.post("/delete-user/:id", deleteUser);
 
