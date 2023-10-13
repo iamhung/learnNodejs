@@ -9,7 +9,7 @@ const {
   deleteUser,
 } = require("../controllers/homeController");
 
-router.get("/", getHomePage);
+router.get("/api/users", getHomePage);
 
 router.get("/update/:id", getUpdateUsers);
 

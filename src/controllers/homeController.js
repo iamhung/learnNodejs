@@ -3,8 +3,10 @@ const { getAllUsers, getUserById, updateUserById, deleteUserById, } = require('.
 
 const getHomePage = async (req, res) => {
     let results = await getAllUsers();
-    // console.log('results ------',results);
-    return res.render('home.ejs',{listUsers: results})
+    // // console.log('results ------',results);
+    // return res.render('home.ejs',{listUsers: results})
+
+    res.status(200).json(results)
 }
 
 const getUpdateUsers = async (req, res) => {
@@ -13,7 +15,8 @@ const getUpdateUsers = async (req, res) => {
 
     let user = await getUserById(userId);
 
-    return res.render('updateUser.ejs',{userUpdate : user})
+    res.status(200).json(user)
+    // return res.render('updateUser.ejs',{userUpdate : user})
 }
 
 const getCreateUsers = (req, res) => {
@@ -35,9 +38,11 @@ const postCreateUser = (req, res) => {
             // console.log('results ------------',results);
 
             if(results){
-                res.send(' Create user success !!!')
+                // res.status(200).json(req.body)
+                res.status(200).json(' Create user success !!!')
             }else {
-                res.send(' Create user fail !!!')
+                res.status(409).json('error')
+                // res.send(' Create user fail !!!')
             }
         }
       );
@@ -52,9 +57,17 @@ const postUpdateUser = async (req, res) => {
 
     // console.log('----------', req.params);
 
-    await updateUserById(email,city,name,userId)
+    const results = await updateUserById(email,city,name,userId)
 
-    res.redirect('/')
+    if(results){
+        // res.status(200).json(req.body)
+        res.status(200).json(' Update user success !!!')
+    }else {
+        res.status(409).json('error')
+        // res.send(' Create user fail !!!')
+    }
+
+    // res.redirect('/')
 }
 
 const deleteUser = async (req, res) => {
@@ -63,9 +76,17 @@ const deleteUser = async (req, res) => {
 
     // console.log('----------', req.params);
 
-    await deleteUserById(userId)
+    const results = await deleteUserById(userId)
 
-    res.redirect('/')
+    if(results){
+        // res.status(200).json(req.body)
+        res.status(200).json(' Delete user success !!!')
+    }else {
+        res.status(409).json('error')
+        // res.send(' Create user fail !!!')
+    }
+
+    // res.redirect('/')
 }
 
 module.exports = {

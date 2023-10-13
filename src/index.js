@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express'); //commonjs
 const configViewEngine = require('./config/viewEngie')
-const webRoutes = require('./routes/web');
+const webRoutes = require('./routes/index.js');
+const swaggerDocs =  require('./swagger.js');
 // const connection = require('./config/datatbase');
 
 const app = express();
@@ -27,5 +28,7 @@ app.use('/',webRoutes);
 // );
 
 app.listen(port,hostname, () => {
-    console.log("This's port : ",port)
+    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Swagger is running at http://localhost:${port}/docs`);
+    swaggerDocs(app, port);
 })
