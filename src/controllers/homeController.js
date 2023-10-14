@@ -4,9 +4,10 @@ const { getAllUsers, getUserById, updateUserById, deleteUserById, } = require('.
 const getHomePage = async (req, res) => {
     let results = await getAllUsers();
     // // console.log('results ------',results);
-    // return res.render('home.ejs',{listUsers: results})
 
     res.status(200).json(results)
+    // return res.render('home.ejs',{listUsers: results})
+
 }
 
 const getUpdateUsers = async (req, res) => {

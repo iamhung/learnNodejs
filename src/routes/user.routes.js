@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * '/users':
+ * '/':
  *  get:
  *     tags:
  *     - User
@@ -38,7 +38,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
-router.get("/users", getHomePage);
+router.get("/", getHomePage);
 
 /**
  * @openapi
