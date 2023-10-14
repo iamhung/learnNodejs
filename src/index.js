@@ -3,7 +3,7 @@ const express = require('express'); //commonjs
 const configViewEngine = require('./config/viewEngie')
 const webRoutes = require('./routes/index.js');
 const swaggerDocs =  require('./swagger.js');
-// const connection = require('./config/datatbase');
+const connection = require('./config/datatbase');
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -19,13 +19,15 @@ configViewEngine(app);
 //khai báo route
 app.use('/',webRoutes);
 
-// connection.query(
-//     'SELECT * FROM Users',
-//     function ( err, results, fields) {
-//         console.log(' results home ----', results);
-//         // console.log(' fields ----', fields);
-//     }
-// );
+// connection();
+
+connection.query(
+    'SELECT * FROM Users',
+    function ( err, results, fields) {
+        console.log(' results home ----', results);
+        // console.log(' fields ----', fields);
+    }
+);
 
 app.listen(port,hostname, () => {
     console.log(`Server is running at http://localhost:${port}`);
