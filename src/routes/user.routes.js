@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @openapi
- * '/':
+ * '/users':
  *  get:
  *     tags:
  *     - User
@@ -38,7 +38,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
-router.get("/", getHomePage);
+router.get("/users", getHomePage);
 
 /**
  * @openapi
@@ -64,11 +64,11 @@ router.get("/", getHomePage);
  *                properties:
  *                  id:
  *                    type: number
+ *                  firstName:
+ *                    type: string
+ *                  lastName:
+ *                    type: string
  *                  email:
- *                    type: string
- *                  name:
- *                    type: string
- *                  city:
  *                    type: string
  *       400:
  *         description: Bad request
@@ -89,19 +89,16 @@ router.get("/users/:id", getUpdateUsers);
  *           schema:
  *            type: object
  *            required:
+ *              - firstName
+ *              - lastName
  *              - email
- *              - name
- *              - city
  *            properties:
+ *              firstName:
+ *                type: string
+ *              lastName:
+ *                type: string
  *              email:
  *                type: string
- *                default: New Email @gmail.com
- *              name:
- *                type: string
- *                default: New User Name
- *              city:
- *                type: string
- *                default: New City
  *
  *     responses:
  *      201:
@@ -136,15 +133,13 @@ router.post("/user", postCreateUser);
  *              - name
  *              - city
  *            properties:
+ *              firstName:
+ *                type: string
+ *              lastName:
+ *                type: string
  *              email:
  *                type: string
- *                default: Hulk@gmail.com
- *              name:
- *                type: string
- *                default: Hulk
- *              city:
- *                type: string
- *                default: NewYork
+ * 
  *     responses:
  *      200:
  *        description: Modified
