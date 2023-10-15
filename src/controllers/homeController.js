@@ -5,6 +5,7 @@ const db = require('../models/index') ;
 
 const getHomePage = async (req, res) => {
     try {
+        // console.log('success')
         let data = await db.User.findAll();
         console.log(data)
 
