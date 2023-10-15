@@ -1,11 +1,21 @@
 const connection = require('../config/datatbase');
 const { getAllUsers, getUserById, updateUserById, deleteUserById, } = require('../services/CRUDService')
+const db = require('../models/index') ;
+
 
 const getHomePage = async (req, res) => {
-    let results = await getAllUsers();
+    try {
+        let data = await db.User.findAll();
+        console.log(data)
+
+        return res.render('home.ejs',{listUsers: data})
+    } catch(err) {
+        console.log(err)
+    }
+    // let results = await getAllUsers();
     // // console.log('results ------',results);
 
-    res.status(200).json(results)
+    // res.status(200).json(data)
     // return res.render('home.ejs',{listUsers: results})
 
 }

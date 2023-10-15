@@ -1,10 +1,24 @@
 const connection = require("../config/datatbase");
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = new Sequelize('sqlite::memory:');
+const db = require('../models/index') ;
 
 const getAllUsers = async () => {
-  let [results, fields] = await connection
-    .promise()
-    .query("select * from Users");
-  return results;
+  // let [results, fields] = await connection
+  //   .promise()
+  //   .query("select * from Users");
+  // return results;
+
+  try {
+    let data = await db.User.findAll();
+    console.log(data)
+
+    console.log('success !!!')
+
+    return res.render('home.ejs',{listUsers: data})
+} catch(err) {
+    console.log(err)
+}
 };
 
 const getUserById = async (userId) => {
