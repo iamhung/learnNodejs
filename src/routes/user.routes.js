@@ -1,11 +1,11 @@
 const express = require("express");
 
 const {
-  getHomePage,
-  postCreateUser,
+  getAllUsers,
+  getUserById,
+  postCreateNewUser,
   postUpdateUser,
-  getUpdateUsers,
-  deleteUser,
+  deleteUserById,
 } = require("../controllers/homeController");
 
 const router = express.Router();
@@ -38,7 +38,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request
  */
-router.get("/users", getHomePage);
+router.get("/users", getAllUsers);
 
 /**
  * @openapi
@@ -73,7 +73,7 @@ router.get("/users", getHomePage);
  *       400:
  *         description: Bad request
  */
-router.get("/users/:id", getUpdateUsers);
+router.get("/users/:id", getUserById);
 
 /**
  * @openapi
@@ -108,7 +108,7 @@ router.get("/users/:id", getUpdateUsers);
  *      404:
  *        description: Not Found
  */
-router.post("/user", postCreateUser);
+router.post("/user", postCreateNewUser);
 
 /**
  * @openapi
@@ -139,7 +139,7 @@ router.post("/user", postCreateUser);
  *                type: string
  *              email:
  *                type: string
- * 
+ *
  *     responses:
  *      200:
  *        description: Modified
@@ -170,6 +170,6 @@ router.put("/user/:id", postUpdateUser);
  *      404:
  *        description: Not Found
  */
-router.delete("/user/:id", deleteUser);
+router.delete("/user/:id", deleteUserById);
 
 module.exports = router;

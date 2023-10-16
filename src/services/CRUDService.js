@@ -1,60 +1,96 @@
 const connection = require("../config/datatbase");
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
-const db = require('../models/index') ;
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize("sqlite::memory:");
+const db = require("../models/index");
 
-const getAllUsers = async () => {
-  // let [results, fields] = await connection
-  //   .promise()
-  //   .query("select * from Users");
-  // return results;
+const getUsers = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let users = await db.User.findAll();
 
-  try {
-    let data = await db.User.findAll();
-    console.log(data)
-
-    console.log('success !!!')
-
-    return res.render('home.ejs',{listUsers: data})
-} catch(err) {
-    console.log(err)
-}
+      resolve(users);
+    } catch (err) {
+      reject(err);
+    }
+  });
 };
 
-const getUserById = async (userId) => {
-  let [results, fields] = await connection
-    .promise()
-    .query("select * from Users where id = ?", [userId]);
-  let user = results && results.length > 0 ? results[0] : {};
-  return user;
+const getUser = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: {
+          id: userId,
+        },
+      });
+      resolve(user || null);
+    } catch (err) {
+      reject(err);
+    }
+  });
 };
 
-const updateUserById = async (email, city, name, userId) => {
-  let [results, fields] = await connection.promise().query(
-    `
-        UPDATE Users
-        SET email = ?, city = ?, name = ?
-        WHERE id = ?
-        `,
-    [email, city, name, userId]
-  );
-  return results;
+const createNewUser = (firstName, lastName, email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.create({
+        firstName,
+        lastName,
+        email,
+      });
+
+      resolve(user || null);
+    } catch (err) {
+      reject(err);
+    }
+  });
 };
 
-const deleteUserById = async (userId) => {
-    let [results, fields] = await connection.promise().query(
-        `
-        delete from Users where id = ?;
-        `
-        ,[userId]
-        );
-    return results;
+const updateUser = (userId, firstName, lastName, email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: userId },
+        raw: false,
+      });
 
-}
+      if (user) {
+        user.firstName = firstName;
+        user.lastName = lastName;
+        user.email = email;
+
+        await user.save();
+
+        resolve(user);
+      } else {
+        resolve("invalid user id !!!");
+      }
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+const deleteUser = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.destroy({
+        where: {
+          id: userId,
+        },
+      });
+
+      resolve(user || null);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
 
 module.exports = {
-  getAllUsers,
-  getUserById,
-  updateUserById,
-  deleteUserById,
+  getUsers,
+  getUser,
+  createNewUser,
+  updateUser,
+  deleteUser,
 };

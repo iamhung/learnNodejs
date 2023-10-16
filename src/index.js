@@ -21,14 +21,6 @@ app.use('/',webRoutes);
 
 connection();
 
-// connection.query(
-//     'SELECT * FROM Users',
-//     function ( err, results, fields) {
-//         console.log(' results home ----', results);
-//         // console.log(' fields ----', fields);
-//     }
-// );
-
 app.listen(port,hostname, () => {
     console.log(`Server is running at http://localhost:${port}`);
     console.log(`Swagger is running at http://localhost:${port}/docs`);
